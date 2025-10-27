@@ -35,11 +35,15 @@ public class CommunityGraph_Sec22_G15 {
         int index1 = vertices.indexOf(c1);
         int index2 = vertices.indexOf(c2);
     
-        if (index1 == -1 || index2 == -1) {
-            System.out.println("One or both contributors not found!");
+        try {
+            if (index1 == -1 || index2 == -1) {
+                throw new ContributorNotFound();
+            }
+        } catch (ContributorNotFound e) {
+            System.out.println(e.getMessage());
             return;
         }
-    
+
         //create collaboration objects (edges)
         Collaboration_Sec22_G15 collaboration1 = new Collaboration_Sec22_G15(c1, c2, projectId);
         Collaboration_Sec22_G15 collaboration2 = new Collaboration_Sec22_G15(c2, c1, projectId);
@@ -47,32 +51,41 @@ public class CommunityGraph_Sec22_G15 {
         //add the collaborations to both adjacency lists (undirected graph)
         adjacencyList.get(index1).add(collaboration1);
         adjacencyList.get(index2).add(collaboration2);
+        
     }
     
     public void removeEdge(Contributor_Sec22_G15 c1, Contributor_Sec22_G15 c2, String projectId) {
         int index1 = vertices.indexOf(c1);
         int index2 = vertices.indexOf(c2);
     
-        if (index1 == -1 || index2 == -1) {
-            System.out.println("One or both contributors not found!");
+        try {
+            if (index1 == -1 || index2 == -1) {
+                throw new ContributorNotFound();
+            }
+        } catch (ContributorNotFound e) {
+            System.out.println(e.getMessage());
             return;
         }
+        //remove the collaborations from both adjacency lists (undirected graph)
+        adjacencyList.get(index1).remove(new Collaboration_Sec22_G15(c1, c2, projectId));
+        adjacencyList.get(index2).remove(new Collaboration_Sec22_G15(c2, c1, projectId));
+    }
+
+    public void addVertex(Contributor_Sec22_G15 contributor) {
+        vertices.add(contributor);
+        adjacencyList.add(new LinkedList<>());
     }
 
     public void removeVertex(Contributor_Sec22_G15 contributor) {
-        int index = vertices.indexOf(contributor);
-    
-        if (index == -1) {
-            System.out.println("Contributor not found!");
-            return;
-        }
+        vertices.remove(contributor);
+        adjacencyList.remove(vertices.indexOf(contributor));
     }
 
     public void printGraph() {
         for(Contributor_Sec22_G15 currentVertex : vertices) {
             System.out.print(currentVertex.getName() + " -> ");
             for(Collaboration_Sec22_G15 currentEdge : adjacencyList.get(vertices.indexOf(currentVertex))) {
-                System.out.print(currentEdge.getContributor2().getName());
+                System.out.print(currentEdge.getContributor2().getName() + " (" + currentEdge.getProjectId() + ")");
                 if(currentEdge != adjacencyList.get(vertices.indexOf(currentVertex)).getLast()) {
                     System.out.print(" -> ");
                 }
