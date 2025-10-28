@@ -35,25 +35,24 @@ public class CommunityGraph_Sec22_G15 {
         adjacencyList.add(new LinkedList<>());
     }
 
-    public void removeVertex(Contributor_Sec22_G15 contributor) {
+    public Contributor_Sec22_G15 removeVertex(Contributor_Sec22_G15 contributor) {
         int index = vertices.indexOf(contributor);
         if (index == -1) {
             System.out.println("Contributor not found!");
-            return;
+            return null;
         }
         
         //remove all edges connected to this vertex
         for (int i = 0; i < adjacencyList.size(); i++) {
-            if (i == index) continue;
-            adjacencyList.get(i).removeIf(edge -> 
-                edge.getContributor1().getId().equals(contributor.getId()) ||
-                edge.getContributor2().getId().equals(contributor.getId())
-            );
+            if (i != index && adjacencyList.get(i).contains(contributor)) {
+                adjacencyList.get(i).remove(contributor);
+            }
         }
         
         //remove the vertex and its adjacency list
         vertices.remove(index);
         adjacencyList.remove(index);
+        return contributor;
     }
 
     public void addEdge(Contributor_Sec22_G15 c1, Contributor_Sec22_G15 c2, String projectId) {
