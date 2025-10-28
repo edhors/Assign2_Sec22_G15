@@ -30,6 +30,31 @@ public class CommunityGraph_Sec22_G15 {
         return this.adjacencyList;
     }
 
+    public void addVertex(Contributor_Sec22_G15 contributor) {
+        vertices.add(contributor);
+        adjacencyList.add(new LinkedList<>());
+    }
+
+    public void removeVertex(Contributor_Sec22_G15 contributor) {
+        int index = vertices.indexOf(contributor);
+        if (index == -1) {
+            System.out.println("Contributor not found!");
+            return;
+        }
+        
+        //remove all edges connected to this vertex
+        for (int i = 0; i < adjacencyList.size(); i++) {
+            if (i == index) continue;
+            adjacencyList.get(i).removeIf(edge -> 
+                edge.getContributor1().getId().equals(contributor.getId()) ||
+                edge.getContributor2().getId().equals(contributor.getId())
+            );
+        }
+        
+        //remove the vertex and its adjacency list
+        vertices.remove(index);
+        adjacencyList.remove(index);
+    }
 
     public void addEdge(Contributor_Sec22_G15 c1, Contributor_Sec22_G15 c2, String projectId) {
         int index1 = vertices.indexOf(c1);
@@ -71,24 +96,11 @@ public class CommunityGraph_Sec22_G15 {
         adjacencyList.get(index2).remove(new Collaboration_Sec22_G15(c2, c1, projectId));
     }
 
-    public void addVertex(Contributor_Sec22_G15 contributor) {
-        vertices.add(contributor);
-        adjacencyList.add(new LinkedList<>());
-    }
-
-    public void removeVertex(Contributor_Sec22_G15 contributor) {
-        vertices.remove(contributor);
-        adjacencyList.remove(vertices.indexOf(contributor));
-    }
-
     public void printGraph() {
         for(Contributor_Sec22_G15 currentVertex : vertices) {
-            System.out.print(currentVertex.getName() + " -> ");
+            System.out.print(currentVertex.getName());
             for(Collaboration_Sec22_G15 currentEdge : adjacencyList.get(vertices.indexOf(currentVertex))) {
-                System.out.print(currentEdge.getContributor2().getName() + " (" + currentEdge.getProjectId() + ")");
-                if(currentEdge != adjacencyList.get(vertices.indexOf(currentVertex)).getLast()) {
-                    System.out.print(" -> ");
-                }
+                System.out.print(" -> " + currentEdge.getContributor2().getName() + " (" + currentEdge.getProjectId() + ")");
             }
             System.out.println();
         }    
