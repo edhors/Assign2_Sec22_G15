@@ -37,8 +37,12 @@ public class CommunityGraph_Sec22_G15 {
 
     public Contributor_Sec22_G15 removeVertex(Contributor_Sec22_G15 contributor) {
         int index = vertices.indexOf(contributor);
-        if (index == -1) {
-            System.out.println("Contributor not found!");
+        try {
+            if (index == -1) {
+                throw new ContributorNotFound(contributor.getName());
+            }
+        } catch (ContributorNotFound e) {
+            System.out.println(e.getMessage());
             return null;
         }
         
@@ -61,7 +65,7 @@ public class CommunityGraph_Sec22_G15 {
     
         try {
             if (index1 == -1 || index2 == -1) {
-                throw new ContributorNotFound();
+                throw new ContributorNotFound(c1.getName() + " or Contributor " + c2.getName());
             }
         } catch (ContributorNotFound e) {
             System.out.println(e.getMessage());
@@ -84,7 +88,7 @@ public class CommunityGraph_Sec22_G15 {
     
         try {
             if (index1 == -1 || index2 == -1) {
-                throw new ContributorNotFound();
+                throw new ContributorNotFound(c1.getName() + " or Contributor " + c2.getName());
             }
         } catch (ContributorNotFound e) {
             System.out.println(e.getMessage());

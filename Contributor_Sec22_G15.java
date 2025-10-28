@@ -22,4 +22,9 @@ public class Contributor_Sec22_G15 {
     public void setName(String name) {
         this.name = name;
     }
+
+    @Override
+    public String toString() {
+        return this.name + " (" + this.id + ")";
+    }
 }

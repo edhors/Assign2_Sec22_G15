@@ -38,8 +38,8 @@ public class Test {
         graph.addEdge(i9, i10, "Project 9");
         graph.addEdge(i10, i1, "Project 10");
 
-
-        graph.removeVertex(i1);
+        Individual_Sec22_G15 outsider = new Individual_Sec22_G15("11", "Outsider");
+        graph.removeVertex(outsider);
         System.out.println("Graph: ");
         graph.printGraph();
     }
