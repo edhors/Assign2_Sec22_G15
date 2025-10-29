@@ -2,16 +2,16 @@ import java.util.LinkedList;
 
 public class Test {
     public static void main(String[] args) {
-        Individual_Sec22_G15 i1 = new Individual_Sec22_G15("1", "John Doe");
-        Individual_Sec22_G15 i2 = new Individual_Sec22_G15("2", "Jane Smith");
-        Individual_Sec22_G15 i3 = new Individual_Sec22_G15("3", "Jim Johnson");
-        Individual_Sec22_G15 i4 = new Individual_Sec22_G15("4", "Jill Williams");
-        Individual_Sec22_G15 i5 = new Individual_Sec22_G15("5", "Jack Brown");
-        Individual_Sec22_G15 i6 = new Individual_Sec22_G15("6", "Josh Brown");
-        Individual_Sec22_G15 i7 = new Individual_Sec22_G15("7", "James Johnson");
-        Individual_Sec22_G15 i8 = new Individual_Sec22_G15("8", "Jessica Miller");
-        Individual_Sec22_G15 i9 = new Individual_Sec22_G15("9", "Jacob Wilson");
-        Individual_Sec22_G15 i10 = new Individual_Sec22_G15("10", "Jasmine Lee");
+        Individual_Sec22_G15 i1 = new Individual_Sec22_G15("I1", "John Doe", "Software Engineer");
+        Individual_Sec22_G15 i2 = new Individual_Sec22_G15("I2", "Jane Smith", "Software Engineer");
+        Individual_Sec22_G15 i3 = new Individual_Sec22_G15("I3", "Jim Johnson", "Software Engineer");
+        Individual_Sec22_G15 i4 = new Individual_Sec22_G15("I4", "Jill Williams", "Software Engineer");
+        Individual_Sec22_G15 i5 = new Individual_Sec22_G15("I5", "Jack Brown", "Software Engineer");
+        Individual_Sec22_G15 i6 = new Individual_Sec22_G15("I6", "Josh Brown", "Software Engineer");
+        Individual_Sec22_G15 i7 = new Individual_Sec22_G15("I7", "James Johnson", "Software Engineer");
+        Individual_Sec22_G15 i8 = new Individual_Sec22_G15("I8", "Jessica Miller", "Software Engineer");
+        Individual_Sec22_G15 i9 = new Individual_Sec22_G15("I9", "Jacob Wilson", "Software Engineer");
+        Individual_Sec22_G15 i10 = new Individual_Sec22_G15("I10", "Jasmine Lee", "Software Engineer");
 
         LinkedList<Contributor_Sec22_G15> individuals = new LinkedList<>();
         individuals.add(i1);
@@ -38,10 +38,12 @@ public class Test {
         graph.addEdge(i9, i10, "Project 9");
         graph.addEdge(i10, i1, "Project 10");
 
-        Individual_Sec22_G15 outsider = new Individual_Sec22_G15("11", "Outsider");
+        Individual_Sec22_G15 outsider = new Individual_Sec22_G15("I11", "Outsider", "Software Engineer");
         graph.removeVertex(outsider);
         System.out.println("Graph: ");
         graph.printGraph();
+        System.out.println(i1.toString() + " influence: " + graph.influence(i1));
+        //graph.bfs(i1);
     }
 }
 
