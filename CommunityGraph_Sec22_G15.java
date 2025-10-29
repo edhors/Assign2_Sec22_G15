@@ -3,21 +3,18 @@ import java.util.Queue;
 
 public class CommunityGraph_Sec22_G15 extends AbstractGraph_Sec22_G15<Contributor_Sec22_G15, Collaboration_Sec22_G15> {
     public CommunityGraph_Sec22_G15() {
-        this.vertices = new LinkedList<>();
-        this.adjacencyList = new LinkedList<>();
+        super(new LinkedList<>(), new LinkedList<>());
     }
 
     public CommunityGraph_Sec22_G15(LinkedList<Contributor_Sec22_G15> vertices) {
-        this.vertices = vertices;
-        this.adjacencyList = new LinkedList<>();
+        super(vertices, new LinkedList<>());
         while (adjacencyList.size() < vertices.size()) {
             adjacencyList.add(new LinkedList<Collaboration_Sec22_G15>());
         }
     }
 
     public CommunityGraph_Sec22_G15(LinkedList<Contributor_Sec22_G15> vertices, LinkedList<LinkedList<Collaboration_Sec22_G15>> adjacencyList) {
-        this.vertices = vertices;
-        this.adjacencyList = adjacencyList;
+        super(vertices, adjacencyList);
     }
 
     @Override
@@ -119,7 +116,7 @@ public class CommunityGraph_Sec22_G15 extends AbstractGraph_Sec22_G15<Contributo
         int index = vertices.indexOf(vertex);
         return adjacencyList.get(index).size();
     }
-    
+
     @Override
     public int reachCount(Contributor_Sec22_G15 start) {
         try {
