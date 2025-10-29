@@ -25,6 +25,6 @@ public class Contributor_Sec22_G15 {
 
     @Override
     public String toString() {
-        return this.name + " (" + this.id + ")";
+        return this.name + " ID: " + this.id;
     }
 }
