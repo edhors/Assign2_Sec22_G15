@@ -114,9 +114,14 @@ public class CommunityGraph_Sec22_G15 extends AbstractGraph_Sec22_G15<Contributo
             System.out.println();
         }    
     }
+    @Override
+    public int neighborsCount(Contributor_Sec22_G15 vertex) {
+        int index = vertices.indexOf(vertex);
+        return adjacencyList.get(index).size();
+    }
     
     @Override
-    public int influence(Contributor_Sec22_G15 start) {
+    public int reachCount(Contributor_Sec22_G15 start) {
         try {
             if (!vertices.contains(start)) {
                 throw new ContributorNotFound_Sec22_G15(start.toString());
