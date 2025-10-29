@@ -1,9 +1,7 @@
 import java.util.LinkedList;
+import java.util.Queue;
 
-public class CommunityGraph_Sec22_G15 {
-    private LinkedList<Contributor_Sec22_G15> vertices;
-    private LinkedList<LinkedList<Collaboration_Sec22_G15>> adjacencyList;
-
+public class CommunityGraph_Sec22_G15 extends AbstractGraph_Sec22_G15<Contributor_Sec22_G15, Collaboration_Sec22_G15> {
     public CommunityGraph_Sec22_G15() {
         this.vertices = new LinkedList<>();
         this.adjacencyList = new LinkedList<>();
@@ -22,26 +20,30 @@ public class CommunityGraph_Sec22_G15 {
         this.adjacencyList = adjacencyList;
     }
 
-    public LinkedList<Contributor_Sec22_G15> getVertices() {
-        return this.vertices;
-    }
-
-    public LinkedList<LinkedList<Collaboration_Sec22_G15>> getAdjacencyList() {
-        return this.adjacencyList;
-    }
-
+    @Override
     public void addVertex(Contributor_Sec22_G15 contributor) {
+        try {
+            for(Contributor_Sec22_G15 c : vertices) {
+                if(c.getId().equals(contributor.getId())) {
+                    throw new DuplicateId_Sec22_G15(contributor.getId());
+                }
+            }
+        } catch (DuplicateId_Sec22_G15 e) {
+            System.out.println(e.getMessage());
+            return;
+        }
         vertices.add(contributor);
         adjacencyList.add(new LinkedList<>());
     }
 
+    @Override
     public Contributor_Sec22_G15 removeVertex(Contributor_Sec22_G15 contributor) {
         int index = vertices.indexOf(contributor);
         try {
             if (index == -1) {
-                throw new ContributorNotFound(contributor.getName());
+                throw new ContributorNotFound_Sec22_G15(contributor.getName());
             }
-        } catch (ContributorNotFound e) {
+        } catch (ContributorNotFound_Sec22_G15 e) {
             System.out.println(e.getMessage());
             return null;
         }
@@ -59,15 +61,16 @@ public class CommunityGraph_Sec22_G15 {
         return contributor;
     }
 
+    @Override
     public void addEdge(Contributor_Sec22_G15 c1, Contributor_Sec22_G15 c2, String projectId) {
         int index1 = vertices.indexOf(c1);
         int index2 = vertices.indexOf(c2);
     
         try {
             if (index1 == -1 || index2 == -1) {
-                throw new ContributorNotFound(c1.getName() + " or Contributor " + c2.getName());
+                throw new ContributorNotFound_Sec22_G15(c1.getName() + " or Contributor " + c2.getName());
             }
-        } catch (ContributorNotFound e) {
+        } catch (ContributorNotFound_Sec22_G15 e) {
             System.out.println(e.getMessage());
             return;
         }
@@ -82,15 +85,16 @@ public class CommunityGraph_Sec22_G15 {
         
     }
     
+    @Override
     public void removeEdge(Contributor_Sec22_G15 c1, Contributor_Sec22_G15 c2, String projectId) {
         int index1 = vertices.indexOf(c1);
         int index2 = vertices.indexOf(c2);
     
         try {
             if (index1 == -1 || index2 == -1) {
-                throw new ContributorNotFound(c1.getName() + " or Contributor " + c2.getName());
+                throw new ContributorNotFound_Sec22_G15(c1.getName() + " or Contributor " + c2.getName());
             }
-        } catch (ContributorNotFound e) {
+        } catch (ContributorNotFound_Sec22_G15 e) {
             System.out.println(e.getMessage());
             return;
         }
@@ -99,16 +103,46 @@ public class CommunityGraph_Sec22_G15 {
         adjacencyList.get(index2).remove(new Collaboration_Sec22_G15(c2, c1, projectId));
     }
 
+    @Override
     public void printGraph() {
         for(Contributor_Sec22_G15 currentVertex : vertices) {
-            System.out.print(currentVertex.getName());
-            for(Collaboration_Sec22_G15 currentEdge : adjacencyList.get(vertices.indexOf(currentVertex))) {
-                System.out.print(" -> " + currentEdge.getContributor2().getName() + " (" + currentEdge.getProjectId() + ")");
+            System.out.print(currentVertex.toString());
+            int index = vertices.indexOf(currentVertex);
+            for(Collaboration_Sec22_G15 currentEdge : adjacencyList.get(index)) {
+                System.out.print(" -> " + currentEdge.getContributor2().toString() + " (" + currentEdge.getProjectId() + ")");
             }
             System.out.println();
         }    
     }
     
-    
-    
+    @Override
+    public int influence(Contributor_Sec22_G15 start) {
+        try {
+            if (!vertices.contains(start)) {
+                throw new ContributorNotFound_Sec22_G15(start.toString());
+            }
+        } catch(ContributorNotFound_Sec22_G15 e) {
+            System.out.println(e.getMessage());
+            return 0;
+        }
+        
+        LinkedList<Contributor_Sec22_G15> visited = new LinkedList<>();
+        Queue<Contributor_Sec22_G15> queue = new LinkedList<>();
+        
+        visited.add(start);
+        queue.add(start);
+        
+        while (!queue.isEmpty()) {
+            Contributor_Sec22_G15 current = queue.poll();            
+            int index = vertices.indexOf(current);
+            for (Collaboration_Sec22_G15 currentEdge : adjacencyList.get(index)) {
+                Contributor_Sec22_G15 neighbor = currentEdge.getContributor2();
+                if (!visited.contains(neighbor)) {
+                    visited.add(neighbor);
+                    queue.add(neighbor);
+                }
+            }
+        }
+        return visited.size();
+    }   
 }
