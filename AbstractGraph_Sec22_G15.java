@@ -35,6 +35,7 @@ public abstract class AbstractGraph_Sec22_G15<V, E> implements Graph_Sec22_G15<V
     public abstract void addEdge(V v1, V v2, String label);
     public abstract void removeEdge(V v1, V v2, String label);
     public abstract int centralityDegree(V vertex);
+    public abstract LinkedList<V> vertexReach(V start);
     public abstract int reachCount(V start);
     
     @Override
