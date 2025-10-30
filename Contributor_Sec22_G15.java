@@ -27,4 +27,15 @@ public class Contributor_Sec22_G15 {
     public String toString() {
         return this.name + " ID: " + this.id;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof Contributor_Sec22_G15))
+            return false;
+        Contributor_Sec22_G15 other = (Contributor_Sec22_G15)o;
+        
+        return this.id.equals(other.id) && this.name.equals(other.name);
+    }
 }
