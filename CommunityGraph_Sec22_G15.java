@@ -118,7 +118,7 @@ public class CommunityGraph_Sec22_G15 extends AbstractGraph_Sec22_G15<Contributo
         int index = vertices.indexOf(vertex);
         return adjacencyList.get(index).size();
     }
-    
+
     @Override
     public LinkedList<Contributor_Sec22_G15> vertexReach(Contributor_Sec22_G15 start) {
         try {
@@ -182,6 +182,16 @@ public class CommunityGraph_Sec22_G15 extends AbstractGraph_Sec22_G15<Contributo
         }
         clusters.add(newCluster);
     }
-        
+    
+    public LinkedList<String> getProjectIdsForContributor(Contributor_Sec22_G15 contributor) {
+        LinkedList<String> projectIds = new LinkedList<>();
+        int index = vertices.indexOf(contributor);
+        for(Collaboration_Sec22_G15 currentEdge : adjacencyList.get(index)) {
+            if(currentEdge.getContributor1().equals(contributor)) {
+                projectIds.add(currentEdge.getProjectId());
+            }
+        }
+        return projectIds;
+    }
     
 }

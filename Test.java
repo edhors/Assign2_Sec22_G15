@@ -36,8 +36,9 @@ public class Test {
 
         Individual_Sec22_G15 outsider = new Individual_Sec22_G15("I11", "Outsider", "Software Engineer");
         graph.removeVertex(outsider);
+        graph.vertices.get(0).setName("MODIFIED");
         System.out.println("Graph: ");
-        //graph.printGraph();
+        graph.printGraph();
         for(int i = 0; i < array.length; i++) {
             System.out.println(array[i].toString() + "\n   Centrality Degree: " + graph.centralityDegree(array[i]) + "\n   Reach Count: " + graph.reachCount(array[i]));
         }
