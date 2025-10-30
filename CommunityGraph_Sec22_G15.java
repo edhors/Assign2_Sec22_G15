@@ -112,7 +112,7 @@ public class CommunityGraph_Sec22_G15 extends AbstractGraph_Sec22_G15<Contributo
         }    
     }
     @Override
-    public int neighborsCount(Contributor_Sec22_G15 vertex) {
+    public int centralityDegree(Contributor_Sec22_G15 vertex) {
         int index = vertices.indexOf(vertex);
         return adjacencyList.get(index).size();
     }

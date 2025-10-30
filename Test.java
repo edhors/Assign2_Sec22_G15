@@ -39,7 +39,7 @@ public class Test {
         System.out.println("Graph: ");
         //graph.printGraph();
         for(int i = 0; i < array.length; i++) {
-            System.out.println(array[i].toString() + "\n   Neighbors Count: " + graph.neighborsCount(array[i]) + "\n   Reach Count: " + graph.reachCount(array[i]));
+            System.out.println(array[i].toString() + "\n   Centrality Degree: " + graph.centralityDegree(array[i]) + "\n   Reach Count: " + graph.reachCount(array[i]));
         }
     }
 }
