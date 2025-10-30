@@ -48,10 +48,8 @@ public class CommunityGraph_Sec22_G15 extends AbstractGraph_Sec22_G15<Contributo
         }
         
         //remove all edges connected to this vertex
-        for (int i = 0; i < adjacencyList.size(); i++) {
-            if (i != index && adjacencyList.get(i).contains(contributor)) {
-                adjacencyList.get(i).remove(contributor);
-            }
+        for(Collaboration_Sec22_G15 currentEdge : adjacencyList.get(index)) {
+            removeEdge(currentEdge);
         }
         
         //remove the vertex and its adjacency list
@@ -61,7 +59,11 @@ public class CommunityGraph_Sec22_G15 extends AbstractGraph_Sec22_G15<Contributo
     }
 
     @Override
-    public void addEdge(Contributor_Sec22_G15 c1, Contributor_Sec22_G15 c2, String projectId) {
+    public void addEdge(Collaboration_Sec22_G15 collaboration) {
+        Contributor_Sec22_G15 c1 = collaboration.getContributor1();
+        Contributor_Sec22_G15 c2 = collaboration.getContributor2();
+        String projectId = collaboration.getProjectId();
+
         int index1 = vertices.indexOf(c1);
         int index2 = vertices.indexOf(c2);
     
@@ -75,17 +77,20 @@ public class CommunityGraph_Sec22_G15 extends AbstractGraph_Sec22_G15<Contributo
         }
 
         //create collaboration objects (edges)
-        Collaboration_Sec22_G15 collaboration1 = new Collaboration_Sec22_G15(c1, c2, projectId);
-        Collaboration_Sec22_G15 collaboration2 = new Collaboration_Sec22_G15(c2, c1, projectId);
+        Collaboration_Sec22_G15 otherCollaboration = new Collaboration_Sec22_G15(c2, c1, projectId);
     
         //add the collaborations to both adjacency lists (undirected graph)
-        adjacencyList.get(index1).add(collaboration1);
-        adjacencyList.get(index2).add(collaboration2);
+        adjacencyList.get(index1).add(collaboration);
+        adjacencyList.get(index2).add(otherCollaboration);
         
     }
     
     @Override
-    public void removeEdge(Contributor_Sec22_G15 c1, Contributor_Sec22_G15 c2, String projectId) {
+    public void removeEdge(Collaboration_Sec22_G15 collaboration) {
+        Contributor_Sec22_G15 c1 = collaboration.getContributor1();
+        Contributor_Sec22_G15 c2 = collaboration.getContributor2();
+        String projectId = collaboration.getProjectId();
+
         int index1 = vertices.indexOf(c1);
         int index2 = vertices.indexOf(c2);
     
@@ -97,9 +102,20 @@ public class CommunityGraph_Sec22_G15 extends AbstractGraph_Sec22_G15<Contributo
             System.out.println(e.getMessage());
             return;
         }
+
+        Collaboration_Sec22_G15 otherCollaboration = new Collaboration_Sec22_G15(c2, c1, projectId);
+        try {
+            if (!adjacencyList.get(index1).contains(collaboration) || !adjacencyList.get(index2).contains(otherCollaboration)) {
+                throw new CollaborationNotFound_Sec22_G15(collaboration);
+            }
+        } catch (CollaborationNotFound_Sec22_G15 e) {
+            System.out.println(e.getMessage());
+            return;
+        }
+        
         //remove the collaborations from both adjacency lists (undirected graph)
-        adjacencyList.get(index1).remove(new Collaboration_Sec22_G15(c1, c2, projectId));
-        adjacencyList.get(index2).remove(new Collaboration_Sec22_G15(c2, c1, projectId));
+        adjacencyList.get(index1).remove(collaboration);
+        adjacencyList.get(index2).remove(otherCollaboration);
     }
 
     @Override
