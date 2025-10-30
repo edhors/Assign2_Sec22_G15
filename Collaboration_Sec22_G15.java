@@ -1,5 +1,3 @@
-import java.util.Objects;
-
 public class Collaboration_Sec22_G15 extends Project_Sec22_G15 {
     private Contributor_Sec22_G15 contributor1;
     private Contributor_Sec22_G15 contributor2;
