@@ -23,24 +23,24 @@ public class Test {
 
         CommunityGraph_Sec22_G15 graph = new CommunityGraph_Sec22_G15(individuals);
 
-        graph.addEdge(i1, i2, "Project 1");
-        graph.addEdge(i2, i5, "Project 2");
-        graph.addEdge(i3, i7, "Project 3");
-        graph.addEdge(i3, i9, "Project 4");
-        graph.addEdge(i5, i1, "Project 5");
-        graph.addEdge(i6, i2, "Project 6");
-        graph.addEdge(i7, i10, "Project 7");
-        graph.addEdge(i8, i4, "Project 8");
-        graph.addEdge(i9, i6, "Project 9");
-        graph.addEdge(i10, i9, "Project 10");
+        graph.addEdge(new Collaboration_Sec22_G15(i1, i2, "Project 1"));
+        graph.addEdge(new Collaboration_Sec22_G15(i2, i5, "Project 2"));
+        graph.addEdge(new Collaboration_Sec22_G15(i3, i7, "Project 3"));
+        graph.addEdge(new Collaboration_Sec22_G15(i3, i9, "Project 4"));
+        graph.addEdge(new Collaboration_Sec22_G15(i5, i1, "Project 5"));
+        graph.addEdge(new Collaboration_Sec22_G15(i6, i2, "Project 6"));
+        graph.addEdge(new Collaboration_Sec22_G15(i7, i10, "Project 7"));
+        graph.addEdge(new Collaboration_Sec22_G15(i8, i4, "Project 8"));
+        graph.addEdge(new Collaboration_Sec22_G15(i9, i6, "Project 9"));
+        graph.addEdge(new Collaboration_Sec22_G15(i10, i9, "Project 10"));
 
         Individual_Sec22_G15 outsider = new Individual_Sec22_G15("I11", "Outsider", "Software Engineer");
         graph.removeVertex(outsider);
         graph.vertices.get(0).setName("MODIFIED");
+        graph.removeVertex(graph.vertices.get(0));
+        //graph.removeEdge(new Collaboration_Sec22_G15(i1, i2, "Project 1"));
         System.out.println("Graph: ");
         graph.printGraph();
-        for(int i = 0; i < array.length; i++) {
-            System.out.println(array[i].toString() + "\n   Centrality Degree: " + graph.centralityDegree(array[i]) + "\n   Reach Count: " + graph.reachCount(array[i]));
-        }
+        
     }
 }
