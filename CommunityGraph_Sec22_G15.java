@@ -1,5 +1,6 @@
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Stack;
 
 public class CommunityGraph_Sec22_G15 extends AbstractGraph_Sec22_G15<Contributor_Sec22_G15, Collaboration_Sec22_G15> {
     private LinkedList<Cluster_Sec22_G15> clusters;
@@ -136,7 +137,7 @@ public class CommunityGraph_Sec22_G15 extends AbstractGraph_Sec22_G15<Contributo
     }
 
     @Override
-    public LinkedList<Contributor_Sec22_G15> vertexReach(Contributor_Sec22_G15 start) {
+    public LinkedList<Contributor_Sec22_G15> vertexReachBfs(Contributor_Sec22_G15 start) {
         try {
             if (!vertices.contains(start)) {
                 throw new ContributorNotFound_Sec22_G15(start.toString());
@@ -167,8 +168,39 @@ public class CommunityGraph_Sec22_G15 extends AbstractGraph_Sec22_G15<Contributo
     }
 
     @Override
+    public LinkedList<Contributor_Sec22_G15> vertexReachDfs(Contributor_Sec22_G15 start) {
+        try {
+            if (!vertices.contains(start)) {
+                throw new ContributorNotFound_Sec22_G15(start.toString());
+            }
+        } catch(ContributorNotFound_Sec22_G15 e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+        
+        LinkedList<Contributor_Sec22_G15> visited = new LinkedList<>();
+        Stack<Contributor_Sec22_G15> stack = new Stack<>();
+        
+        visited.add(start);
+        stack.add(start);
+        
+        while (!stack.isEmpty()) {
+            Contributor_Sec22_G15 current = stack.pop();            
+            int index = vertices.indexOf(current);
+            for (Collaboration_Sec22_G15 currentEdge : adjacencyList.get(index)) {
+                Contributor_Sec22_G15 neighbor = currentEdge.getContributor2();
+                if (!visited.contains(neighbor)) {
+                    visited.add(neighbor);
+                    stack.push(neighbor);
+                }
+            }
+        }
+        return visited;
+    }
+
+    @Override
     public int reachCount(Contributor_Sec22_G15 start) {
-        LinkedList<Contributor_Sec22_G15> visited = vertexReach(start);
+        LinkedList<Contributor_Sec22_G15> visited = vertexReachBfs(start);
         if (visited == null) {
             return 0;
         }
@@ -176,7 +208,7 @@ public class CommunityGraph_Sec22_G15 extends AbstractGraph_Sec22_G15<Contributo
     }   
 
     public void addCluster(Contributor_Sec22_G15 start, String theme, String projectId) {
-        LinkedList<Contributor_Sec22_G15> visited = vertexReach(start);
+        LinkedList<Contributor_Sec22_G15> visited = vertexReachBfs(start);
         try {
             if (visited == null) {
                 throw new ContributorHasNoConnections_Sec22_G15(start.toString());
@@ -209,5 +241,5 @@ public class CommunityGraph_Sec22_G15 extends AbstractGraph_Sec22_G15<Contributo
         }
         return projectIds;
     }
-    
+   
 }

@@ -8,7 +8,8 @@ public interface Graph_Sec22_G15<V, E> {
     void addEdge(E edge);
     void removeEdge(E edge);
     int centralityDegree(V vertex);
-    LinkedList<V> vertexReach(V start);
+    LinkedList<V> vertexReachBfs(V start);
+    LinkedList<V> vertexReachDfs(V start);
     int reachCount(V start);
     void printGraph();
 }
