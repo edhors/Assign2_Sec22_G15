@@ -48,12 +48,11 @@ public class CommunityGraph_Sec22_G15 extends AbstractGraph_Sec22_G15<Contributo
             return null;
         }
         
-        //remove all edges connected to this vertex
-        for(Collaboration_Sec22_G15 currentEdge : adjacencyList.get(index)) {
+        LinkedList<Collaboration_Sec22_G15> edgesToRemove = new LinkedList<>(adjacencyList.get(index));
+        for(Collaboration_Sec22_G15 currentEdge : edgesToRemove) {
             removeEdge(currentEdge);
         }
         
-        //remove the vertex and its adjacency list
         vertices.remove(index);
         adjacencyList.remove(index);
         return contributor;
@@ -77,10 +76,8 @@ public class CommunityGraph_Sec22_G15 extends AbstractGraph_Sec22_G15<Contributo
             return;
         }
 
-        //create collaboration objects (edges)
         Collaboration_Sec22_G15 otherCollaboration = new Collaboration_Sec22_G15(c2, c1, projectId);
     
-        //add the collaborations to both adjacency lists (undirected graph)
         adjacencyList.get(index1).add(collaboration);
         adjacencyList.get(index2).add(otherCollaboration);
         
@@ -114,7 +111,6 @@ public class CommunityGraph_Sec22_G15 extends AbstractGraph_Sec22_G15<Contributo
             return;
         }
         
-        //remove the collaborations from both adjacency lists (undirected graph)
         adjacencyList.get(index1).remove(collaboration);
         adjacencyList.get(index2).remove(otherCollaboration);
     }
@@ -130,6 +126,7 @@ public class CommunityGraph_Sec22_G15 extends AbstractGraph_Sec22_G15<Contributo
             System.out.println();
         }    
     }
+    
     @Override
     public int centralityDegree(Contributor_Sec22_G15 vertex) {
         int index = vertices.indexOf(vertex);
@@ -207,7 +204,35 @@ public class CommunityGraph_Sec22_G15 extends AbstractGraph_Sec22_G15<Contributo
         return visited.size();
     }   
 
-    public void addCluster(Contributor_Sec22_G15 start, String theme, String projectId) {
+    public boolean isBridgeConnector(Contributor_Sec22_G15 contributor) {
+        LinkedList<Contributor_Sec22_G15> initialVisited = vertexReachBfs(contributor);
+
+        if (initialVisited == null || initialVisited.size() == 1) {
+            return false;
+        }
+
+        LinkedList<Contributor_Sec22_G15> tempVertices = new LinkedList<>(vertices);
+        LinkedList<LinkedList<Collaboration_Sec22_G15>> tempAdjacencyList = new LinkedList<>();
+        for (LinkedList<Collaboration_Sec22_G15> list : adjacencyList) {
+            tempAdjacencyList.add(new LinkedList<>(list));
+        }
+        CommunityGraph_Sec22_G15 tempGraph = new CommunityGraph_Sec22_G15(tempVertices, tempAdjacencyList);
+        tempGraph.removeVertex(contributor);
+
+        Contributor_Sec22_G15 v = initialVisited.get(1);
+        
+        try {
+            if (reachCount(v) - tempGraph.reachCount(v) > 1) {
+                return true;
+            }
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println(e.getMessage() + " for contributor " + v.toString());
+            return false;
+        }
+        return false;
+    }
+
+    public void addCluster(Contributor_Sec22_G15 start, String theme) {
         LinkedList<Contributor_Sec22_G15> visited = vertexReachBfs(start);
         try {
             if (visited == null) {
@@ -218,16 +243,7 @@ public class CommunityGraph_Sec22_G15 extends AbstractGraph_Sec22_G15<Contributo
             return;
         }
         
-        Cluster_Sec22_G15 newCluster = new Cluster_Sec22_G15(theme, projectId, visited);
-        for(Cluster_Sec22_G15 currentCluster : clusters){
-            try {
-                if(currentCluster.getContributors().containsAll(newCluster.getContributors())) {
-                    throw new ContributorsAlreadyInCluster_Sec22_G15(start);
-                }
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-        }
+        Cluster_Sec22_G15 newCluster = new Cluster_Sec22_G15(theme, visited);
         clusters.add(newCluster);
     }
     
@@ -241,5 +257,4 @@ public class CommunityGraph_Sec22_G15 extends AbstractGraph_Sec22_G15<Contributo
         }
         return projectIds;
     }
-   
 }
