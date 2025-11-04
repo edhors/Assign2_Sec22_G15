@@ -1,11 +1,16 @@
-public class Collaboration_Sec22_G15 extends Project_Sec22_G15 {
+public class Collaboration_Sec22_G15 {
+    private String projectId;
     private Contributor_Sec22_G15 contributor1;
     private Contributor_Sec22_G15 contributor2;
 
     public Collaboration_Sec22_G15(Contributor_Sec22_G15 contributor1, Contributor_Sec22_G15 contributor2, String projectId) {
-        super(projectId);
+        this.projectId = projectId;
         this.contributor1 = contributor1;
         this.contributor2 = contributor2;
+    }
+
+    public String getProjectId() {
+        return projectId;
     }
 
     public Contributor_Sec22_G15 getContributor1() {
@@ -14,6 +19,10 @@ public class Collaboration_Sec22_G15 extends Project_Sec22_G15 {
 
     public Contributor_Sec22_G15 getContributor2() {
         return contributor2;
+    }
+
+    public void setProjectId(String projectId) {
+        this.projectId = projectId;
     }
 
     public void setContributor1(Contributor_Sec22_G15 contributor1) {

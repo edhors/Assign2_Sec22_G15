@@ -1,16 +1,20 @@
 import java.util.LinkedList;
-public class Cluster_Sec22_G15 extends Project_Sec22_G15 {
+public class Cluster_Sec22_G15 {
     private LinkedList<Contributor_Sec22_G15> contributors;
     private String theme;
 
-    public Cluster_Sec22_G15(String projectId, String theme) {
-        super(projectId);
+    public Cluster_Sec22_G15(String theme) {
         this.theme = theme;
         this.contributors = new LinkedList<>();
     }
 
-    public Cluster_Sec22_G15(String projectId, String theme, LinkedList<Contributor_Sec22_G15> contributors) {
-        super(projectId);
+    public Cluster_Sec22_G15(LinkedList<Contributor_Sec22_G15> contributors) {
+        this.theme = contributors.get(0).getName();
+        this.contributors = contributors;
+    }
+
+
+    public Cluster_Sec22_G15(String theme, LinkedList<Contributor_Sec22_G15> contributors) {
         this.theme = theme;
         this.contributors = contributors;
     }
@@ -33,5 +37,15 @@ public class Cluster_Sec22_G15 extends Project_Sec22_G15 {
 
     public void setTheme(String theme) {
         this.theme = theme;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof Cluster_Sec22_G15))
+            return false;
+        Cluster_Sec22_G15 other = (Cluster_Sec22_G15)o;
+        return this.contributors.containsAll(other.contributors) && other.contributors.containsAll(this.contributors);
     }
 }
