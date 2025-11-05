@@ -1,7 +1,9 @@
+import java.util.LinkedList;
 import java.util.Scanner;
 public class Main_Sec22_G15 {
     public static void main(String[] args) {
         System.out.println("Welcome to the Community Graph!");
+        initializeGraph();
         int choice = -1;
         while (choice != 0) {
             try {
@@ -35,6 +37,9 @@ public class Main_Sec22_G15 {
                     case 9:
                         printGraph();
                         break;
+                    case 0:
+                        System.out.println("Thank you for using the Community Graph!");
+                        break;
                     default:
                         System.out.println("Invalid choice");
                         break;
@@ -64,6 +69,7 @@ public class Main_Sec22_G15 {
 
     //1. Add a new contributor
     public static void addContributor() {
+        System.out.println("--------------------------------");
         int key = -1;
         while (key != 0) {
             try {
@@ -109,10 +115,12 @@ public class Main_Sec22_G15 {
                 System.out.println(e.getMessage());
             }
         }
+        System.out.println("--------------------------------");
     }
 
     //2. Remove a contributor
     public static void removeContributor() {
+        System.out.println("--------------------------------");
         int key = -1;
         while (key != 0) {
             try {
@@ -158,10 +166,12 @@ public class Main_Sec22_G15 {
                 System.out.println(e.getMessage());
             }
         }
+        System.out.println("--------------------------------");
     }
     
     //3. Add a new collaboration
     public static void addCollaboration() {
+        System.out.println("--------------------------------");
         int key = -1;
         while (key != 0) {
             Contributor_Sec22_G15 contributor1 = null;
@@ -223,10 +233,12 @@ public class Main_Sec22_G15 {
                 System.out.println(e.getMessage());
             }
         }
+        System.out.println("--------------------------------");
     }
 
     //4. Remove a collaboration
     public static void removeCollaboration() {
+        System.out.println("--------------------------------");
     int choice = 1;
     while (choice != 0) {
         scanner.nextLine();
@@ -256,23 +268,35 @@ public class Main_Sec22_G15 {
             System.out.println(e.getMessage());
         }
 
-        System.out.println("1-Remove another collaboration\n0- Exit");
+        System.out.println("Do you want to remove another collaboration? (1. Yes, 0. No)");
         choice = scanner.nextInt();
+        try {
+            if (choice != 1 && choice != 0) {
+                throw new Exception("Invalid input");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
+        }
+        System.out.println("--------------------------------");
     }
     //5. Display clusters
     public static void displayClusters() {
+        System.out.println("--------------------------------");
         graph.displayClusters();
+        System.out.println("--------------------------------");
     }
 
     //6. Update cluster theme
     public static void updateClusterTheme() {
+        System.out.println("--------------------------------");
         int key = -1;
         while (key != 0) {
             try {
                 displayClusters();
                 System.out.print("Enter the index of the cluster to update: ");
                 int index = scanner.nextInt() - 1;
+                scanner.nextLine();
                 System.out.print("Enter the new theme: ");
                 String theme = scanner.nextLine();
                 graph.getClusters().get(index).setTheme(theme);
@@ -280,7 +304,7 @@ public class Main_Sec22_G15 {
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
-            System.out.println("Do you want to add another contributor? (1. Yes, 0. No)");
+            System.out.println("Do you want to update another cluster theme? (1. Yes, 0. No)");
             key = scanner.nextInt();
             try {
                 if (key != 1 && key != 0) {
@@ -290,21 +314,73 @@ public class Main_Sec22_G15 {
                 System.out.println(e.getMessage());
             }
         }
+        System.out.println("--------------------------------");
     }
 
     //7. Contributors ranking by centrality degree
     public static void contributorsRankingByCentralityDegree() {
+        System.out.println("--------------------------------");
         graph.contributorsRankingByCentralityDegree();
+        System.out.println("Press any key to go back to the menu");
+        scanner.nextLine();
+        System.out.println("--------------------------------");
     }
 
     //8. Contributors ranking by number of bridges
     public static void contributorsRankingByNumberOfBridges() {
+        System.out.println("--------------------------------");
         graph.contributorsRankingByNumberOfBridges();
+        System.out.println("Press any key to go back to the menu");
+        scanner.nextLine();
+        System.out.println("--------------------------------");
     }
 
     //9. Print the graph
     public static void printGraph() {
+        System.out.println("--------------------------------");
         graph.printGraph();
+        System.out.println("Press any key to go back to the menu");
+        scanner.nextLine();
+        System.out.println("--------------------------------");
     }
     
+    public static void initializeGraph() {
+        Individual_Sec22_G15 i1 = new Individual_Sec22_G15("I1", "John Doe", "Software Engineer");
+        Individual_Sec22_G15 i2 = new Individual_Sec22_G15("I2", "Jane Smith", "Software Engineer");
+        Individual_Sec22_G15 i3 = new Individual_Sec22_G15("I3", "Jim Johnson", "Software Engineer");
+        Individual_Sec22_G15 i4 = new Individual_Sec22_G15("I4", "Jill Williams", "Software Engineer");
+        Individual_Sec22_G15 i5 = new Individual_Sec22_G15("I5", "Jack Brown", "Software Engineer");
+        Individual_Sec22_G15 i6 = new Individual_Sec22_G15("I6", "Josh Brown", "Software Engineer");
+        Individual_Sec22_G15 i7 = new Individual_Sec22_G15("I7", "James Johnson", "Software Engineer");
+        Individual_Sec22_G15 i8 = new Individual_Sec22_G15("I8", "Jessica Miller", "Software Engineer");
+        Individual_Sec22_G15 i9 = new Individual_Sec22_G15("I9", "Jacob Wilson", "Software Engineer");
+        Individual_Sec22_G15 i10 = new Individual_Sec22_G15("I10", "Jasmine Lee", "Software Engineer");
+        Individual_Sec22_G15 i11 = new Individual_Sec22_G15("I11", "Outsider", "Software Engineer");
+
+        Individual_Sec22_G15[] array = {i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11};
+
+        LinkedList<Contributor_Sec22_G15> individuals = new LinkedList<>();
+        for(int i = 0; i < array.length; i++) {
+            individuals.add(array[i]);
+        }
+
+        graph = new CommunityGraph_Sec22_G15(individuals);
+
+        graph.addEdge(new Collaboration_Sec22_G15(i1, i2, "Project 1"));
+        graph.addEdge(new Collaboration_Sec22_G15(i2, i5, "Project 2"));
+        graph.addEdge(new Collaboration_Sec22_G15(i3, i7, "Project 3"));
+        graph.addEdge(new Collaboration_Sec22_G15(i3, i9, "Project 4"));
+        graph.addEdge(new Collaboration_Sec22_G15(i5, i1, "Project 5"));
+        graph.addEdge(new Collaboration_Sec22_G15(i6, i2, "Project 6"));
+        graph.addEdge(new Collaboration_Sec22_G15(i7, i10, "Project 7"));
+        graph.addEdge(new Collaboration_Sec22_G15(i8, i4, "Project 8"));
+        graph.addEdge(new Collaboration_Sec22_G15(i9, i6, "Project 9"));
+        graph.addEdge(new Collaboration_Sec22_G15(i10, i9, "Project 10"));
+        graph.addCluster(i1, "Health");
+        graph.addCluster(i4, "Safety");
+        graph.addEdge(new Collaboration_Sec22_G15(i11, i4, "Project 11"));
+        Individual_Sec22_G15 i12 = new Individual_Sec22_G15("I12", "Outsider", "Software Engineer");
+        graph.addVertex(i12);
+        graph.addEdge(new Collaboration_Sec22_G15(i11, i12, "Project 12"));
+    }
 }
