@@ -23,6 +23,12 @@ public class CommunityGraph_Sec22_G15 extends AbstractGraph_Sec22_G15<Contributo
         this.clusters = new LinkedList<>();
     }
 
+
+    public LinkedList<Cluster_Sec22_G15> getClusters() {
+        return this.clusters;
+    }
+    
+
     @Override
     public void addVertex(Contributor_Sec22_G15 contributor) {
         try {
@@ -83,7 +89,7 @@ public class CommunityGraph_Sec22_G15 extends AbstractGraph_Sec22_G15<Contributo
     
         adjacencyList.get(index1).add(collaboration);
         adjacencyList.get(index2).add(otherCollaboration);
-        addCluster(c1, "Cluster " + (clusters.size() + 1));
+        addCluster(c1, "Cluster Starting from " + c1.getId());
     }
     
     @Override
@@ -116,6 +122,8 @@ public class CommunityGraph_Sec22_G15 extends AbstractGraph_Sec22_G15<Contributo
         
         adjacencyList.get(index1).remove(collaboration);
         adjacencyList.get(index2).remove(otherCollaboration);
+        addCluster(c1, "Cluster Starting from " + c1.getId());
+        addCluster(c2, "Cluster Starting from " + c2.getId());
     }
 
     @Override
@@ -252,21 +260,38 @@ public class CommunityGraph_Sec22_G15 extends AbstractGraph_Sec22_G15<Contributo
     public void addCluster(Contributor_Sec22_G15 start, String theme) {
         LinkedList<Contributor_Sec22_G15> visited = vertexReachBfs(start);
         try {
-            if (visited == null) {
+            if (visited.size() <= 1) {
                 throw new ContributorHasNoConnections_Sec22_G15(start.toString());
             }
         } catch (ContributorHasNoConnections_Sec22_G15 e) {
+            for(Cluster_Sec22_G15 currentCluster : clusters) {
+                if(currentCluster.getContributors().contains(start)) {
+                    System.out.println("Removing cluster: " + currentCluster.getTheme());
+                    removeCluster(currentCluster);
+                }
+            }
             System.out.println(e.getMessage());
             return;
         }
         
         Cluster_Sec22_G15 newCluster = new Cluster_Sec22_G15(theme, visited);
+        LinkedList<Cluster_Sec22_G15> clustersToRemove = new LinkedList<>();
         for(Cluster_Sec22_G15 currentCluster : clusters) {
             for(Contributor_Sec22_G15 currentContributor : currentCluster.getContributors()) {
+                if(visited.contains(currentContributor)) {
+                    if(!currentCluster.getTheme().contains("Starting from")) {
+                        newCluster.setTheme(currentCluster.getTheme());
+                    }
+                    clustersToRemove.add(currentCluster);
+                    break;
+                }
+            }
+        }
+        for(Cluster_Sec22_G15 cluster : clustersToRemove) {
+            removeCluster(cluster);
         }
         clusters.add(newCluster);
     }
-    
 
     public void removeCluster(Cluster_Sec22_G15 cluster) {
         clusters.remove(cluster);
