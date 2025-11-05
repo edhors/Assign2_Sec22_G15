@@ -80,7 +80,7 @@ public class CommunityGraph_Sec22_G15 extends AbstractGraph_Sec22_G15<Contributo
     
         adjacencyList.get(index1).add(collaboration);
         adjacencyList.get(index2).add(otherCollaboration);
-        
+        addCluster(c1, projectId);
     }
     
     @Override
