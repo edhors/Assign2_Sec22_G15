@@ -118,10 +118,10 @@ public class CommunityGraph_Sec22_G15 extends AbstractGraph_Sec22_G15<Contributo
     @Override
     public void printGraph() {
         for(Contributor_Sec22_G15 currentVertex : vertices) {
-            System.out.print(currentVertex.toString());
+            System.out.print(currentVertex.toString() + " Collaborations: ");
             int index = vertices.indexOf(currentVertex);
             for(Collaboration_Sec22_G15 currentEdge : adjacencyList.get(index)) {
-                System.out.print(" -> " + currentEdge.getContributor2().toString() + " (" + currentEdge.getProjectId() + ")");
+                System.out.print(" " + currentEdge.getContributor2().toString() + " (" + currentEdge.getProjectId() + ")");
             }
             System.out.println();
         }    
@@ -222,41 +222,28 @@ public class CommunityGraph_Sec22_G15 extends AbstractGraph_Sec22_G15<Contributo
 
         try {
             if (reachCount(c1) == tempGraph.reachCount(c1)) {
-                return true;
+                return false;
             }
         } catch (IndexOutOfBoundsException e) {
             System.out.println(e.getMessage() + " for contributor " + c1.toString());
             return false;
         }
-        return false;
+        return true;
     }
     
-    public boolean isBridgeConnector(Contributor_Sec22_G15 contributor) {
-        LinkedList<Contributor_Sec22_G15> initialVisited = vertexReachBfs(contributor);
-
-        if (initialVisited == null || initialVisited.size() == 1) {
-            return false;
+    public int numberOfBridges(Contributor_Sec22_G15 contributor) {
+        int count = 0;
+        int index = vertices.indexOf(contributor);
+        if (index == -1) {
+            return 0;
         }
-
-        LinkedList<Contributor_Sec22_G15> tempVertices = new LinkedList<>(vertices);
-        LinkedList<LinkedList<Collaboration_Sec22_G15>> tempAdjacencyList = new LinkedList<>();
-        for (LinkedList<Collaboration_Sec22_G15> list : adjacencyList) {
-            tempAdjacencyList.add(new LinkedList<>(list));
-        }
-        CommunityGraph_Sec22_G15 tempGraph = new CommunityGraph_Sec22_G15(tempVertices, tempAdjacencyList);
-        tempGraph.removeVertex(contributor);
-
-        Contributor_Sec22_G15 v = initialVisited.get(1);
-        
-        try {
-            if (reachCount(v) - tempGraph.reachCount(v) > 1) {
-                return true;
+        LinkedList<Collaboration_Sec22_G15> edges = adjacencyList.get(index);
+        for(Collaboration_Sec22_G15 currentEdge : edges) {
+            if(isBridge(currentEdge)) {
+                count++;
             }
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println(e.getMessage() + " for contributor " + v.toString());
-            return false;
         }
-        return false;
+        return count;
     }
 
     public void addCluster(Contributor_Sec22_G15 start, String theme) {
