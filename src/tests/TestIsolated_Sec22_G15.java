@@ -1,4 +1,9 @@
-package src;
+/*
+csc301 Section 22 Assignment 2 Group 15 
+Eduardo Horstmann 1091883
+Ali Mousa Tanbouz 1088413 
+Alexey Gorshkov 1090711
+*/
 
 import src.graphs.CommunityGraph_Sec22_G15;
 import src.vertices.Contributor_Sec22_G15;
