@@ -227,7 +227,7 @@ public class Main_Sec22_G15 {
             }
 
             if (contributor1 == null || contributor2 == null) {
-                System.out.println("One or both contributors not found in the graph!");
+                System.out.println("contributor not found in the graph");
             } else {
                 System.out.print("Enter project ID: ");
                 String projectID = scanner.nextLine();
