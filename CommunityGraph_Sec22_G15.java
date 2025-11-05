@@ -154,10 +154,10 @@ public class CommunityGraph_Sec22_G15 extends AbstractGraph_Sec22_G15<Contributo
     @Override
     public void printGraph() {
         for(Contributor_Sec22_G15 currentVertex : vertices) {
-            System.out.print(currentVertex.toString() + " Collaborations: ");
+            System.out.print(currentVertex.toString());
             int index = vertices.indexOf(currentVertex);
             for(Collaboration_Sec22_G15 currentEdge : adjacencyList.get(index)) {
-                System.out.print(" " + currentEdge.getContributor2().toString() + " (" + currentEdge.getProjectId() + ")");
+                System.out.print(" --> " + currentEdge.getContributor2().toString() + " (" + currentEdge.getProjectId() + ")");
             }
             System.out.println();
         }    
@@ -427,6 +427,7 @@ public class CommunityGraph_Sec22_G15 extends AbstractGraph_Sec22_G15<Contributo
                 System.out.print(" " + currentContributor.toString());
             }
             System.out.println();
+            index++;
         }
     }
 }
