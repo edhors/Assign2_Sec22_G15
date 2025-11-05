@@ -6,7 +6,7 @@ public class TestInvalid {
         Contributor_Sec22_G15 b = new Individual_Sec22_G15("I2", "Edwardo", "Artist");
 
         graph.addContributor(a);
-        graph.addEdge(new Collaboration_Sec22_G15(a, b, "InvalidProject")); // b not added
+        graph.addEdge(new Collaboration_Sec22_G15(a, b, "InvalidProject")); 
 
         if (graph.getContributors().size() == 1 && graph.getCollaborations().size() == 0) {
             System.out.println("Invalid Collaborations pass");
