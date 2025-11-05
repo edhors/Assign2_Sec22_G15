@@ -5,7 +5,7 @@ public class TestInvalid {
         Contributor_Sec22_G15 b = new Individual_Sec22_G15("I2", "Edwardo", "Artist");
         graph.addContributor(a);
         graph.addEdge(new Collaboration_Sec22_G15(a, b, "InvalidProject"));
-        System.out.println("Invalid Collaborations Test");
+        System.out.println("Invalid  Test");
         graph.displayContributors();
         graph.displayCollaborations(); 
     }
