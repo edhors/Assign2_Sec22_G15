@@ -6,7 +6,7 @@ public class TestDuplicate {
         Contributor_Sec22_G15 b = new Individual_Sec22_G15("I2", "Edwardo", "Doctor");
 
         graph.addContributor(a);
-        graph.addContributor(a); 
+        graph.addContributor(b); 
         graph.addContributor(b);
 
         graph.addEdge(new Collaboration_Sec22_G15(a, b, "Project1"));
