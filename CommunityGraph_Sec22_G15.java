@@ -258,4 +258,22 @@ public class CommunityGraph_Sec22_G15 extends AbstractGraph_Sec22_G15<Contributo
         }
         return projectIds;
     }
+    
+        public void ShowClusters() { 
+        LinkedList<Contributor_Sec22_G15> InGroup = new LinkedList<>();
+        int groupNumber = 1;
+
+        for (Contributor_Sec22_G15 person : vertices) {
+            if (!alreadyInGroup.contains(person)) {
+                LinkedList<Contributor_Sec22_G15> groupMembers = vertexReachBfs(person);
+                alreadyInGroup.addAll(groupMembers);
+
+                System.out.println("Group " + groupNumber + ":");
+                for (Contributor_Sec22_G15 member : groupMembers) {
+                    System.out.println(" " + member.toString());
+                }
+                groupNumber++;
+            }
+        }
+    }
 }
