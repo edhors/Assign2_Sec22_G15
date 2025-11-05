@@ -1,14 +1,14 @@
 public class TestIsolated {
     public static void main(String[] args) {
-        CommunityGraph_Sec22_G15 g = new CommunityGraph_Sec22_G15();
+        CommunityGraph_Sec22_G15 graph = new CommunityGraph_Sec22_G15();
 
-        g.addContributor(new Individual_Sec22_G15("I1", "Edwardo", "Doctor"));
-        g.addContributor(new Individual_Sec22_G15("I2", "Ali", "Doctor"));
-        g.addContributor(new Organization_Sec22_G15("O1", "School", "Education"));
+        graph.addContributor(new Individual_Sec22_G15("I1", "Edwardo", "Doctor"));
+        graph.addContributor(new Individual_Sec22_G15("I2", "Ali", "Doctor"));
+        graph.addContributor(new Organization_Sec22_G15("O1", "School", "Education"));
 
         
         System.out.println("Isolated Contributors Test");
-        g.displayContributors();
-        g.displayCollaborations(); 
+        graph.displayContributors();
+        graph.displayCollaborations(); 
     }
 }
