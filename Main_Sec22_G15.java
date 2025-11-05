@@ -238,7 +238,7 @@ public class Main_Sec22_G15 {
             System.out.println(e.getMessage());
         }
 
-        System.out.println("1 - Remove another collaboration\n0 - Exit");
+        System.out.println("1-Remove another collaboration\n0- Exit");
         choice = scanner.nextInt();
     }
 }
@@ -249,7 +249,7 @@ public class Main_Sec22_G15 {
     }
         int n = 1;
             for (Cluster_Sec22_G15 clust : graph.getClusters()) {
-                System.out.println("Cluster " + n + " - Theme: " + clust.getTheme());
+                System.out.println("Cluster " +n+"-Theme: " +clust.getTheme());
                 for (Contributor_Sec22_G15 member : clust.getContributors()) {
                     System.out.println("  " + member);
     }
