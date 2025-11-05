@@ -1,3 +1,4 @@
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
@@ -395,13 +396,24 @@ public class CommunityGraph_Sec22_G15 extends AbstractGraph_Sec22_G15<Contributo
     public void contributorsRankingByCentralityDegree() {
         //get the list of contributors
         LinkedList<Contributor_Sec22_G15> contributors = new LinkedList<>(vertices);
-        //for each contributor
+        Collections.sort(contributors, new CentralityDegreeComparator_Sec22_G15(this));
+        System.out.println("Contributors ranking by centrality degree:");
+        //print the contributors
         for(Contributor_Sec22_G15 currentContributor : contributors) {
-            //print the contributor and its centrality degree
             System.out.println(currentContributor.toString() + " - " + centralityDegree(currentContributor));
         }
     }
-
+    //this method is used to rank the contributors by number of bridges
+    public void contributorsRankingByNumberOfBridges() {
+        //get the list of contributors
+        LinkedList<Contributor_Sec22_G15> contributors = new LinkedList<>(vertices);
+        Collections.sort(contributors, new NumberOfBridgesComparator_Sec22_G15(this));
+        System.out.println("Contributors ranking by number of bridges:");
+        //print the contributors
+        for(Contributor_Sec22_G15 currentContributor : contributors) {
+            System.out.println(currentContributor.toString() + " - " + numberOfBridges(currentContributor));
+        }
+    }
 
     //this method is used to display the clusters
     public void displayClusters() {
