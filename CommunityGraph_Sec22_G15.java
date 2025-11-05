@@ -205,6 +205,32 @@ public class CommunityGraph_Sec22_G15 extends AbstractGraph_Sec22_G15<Contributo
         return visited.size();
     }   
 
+    public boolean isBridge(Collaboration_Sec22_G15 collaboration) {
+        Contributor_Sec22_G15 c1 = collaboration.getContributor1();
+        LinkedList<Contributor_Sec22_G15> initialVisited = vertexReachBfs(c1);
+        if (initialVisited == null || initialVisited.size() == 1) {
+            return false;
+        }
+
+        LinkedList<Contributor_Sec22_G15> tempVertices = new LinkedList<>(vertices);
+        LinkedList<LinkedList<Collaboration_Sec22_G15>> tempAdjacencyList = new LinkedList<>();
+        for (LinkedList<Collaboration_Sec22_G15> list : adjacencyList) {
+            tempAdjacencyList.add(new LinkedList<>(list));
+        }
+        CommunityGraph_Sec22_G15 tempGraph = new CommunityGraph_Sec22_G15(tempVertices, tempAdjacencyList);
+        tempGraph.removeEdge(collaboration);
+
+        try {
+            if (reachCount(c1) == tempGraph.reachCount(c1)) {
+                return true;
+            }
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println(e.getMessage() + " for contributor " + c1.toString());
+            return false;
+        }
+        return false;
+    }
+    
     public boolean isBridgeConnector(Contributor_Sec22_G15 contributor) {
         LinkedList<Contributor_Sec22_G15> initialVisited = vertexReachBfs(contributor);
 
@@ -264,9 +290,9 @@ public class CommunityGraph_Sec22_G15 extends AbstractGraph_Sec22_G15<Contributo
         int groupNumber = 1;
 
         for (Contributor_Sec22_G15 person : vertices) {
-            if (!alreadyInGroup.contains(person)) {
+            if (!InGroup.contains(person)) {
                 LinkedList<Contributor_Sec22_G15> groupMembers = vertexReachBfs(person);
-                alreadyInGroup.addAll(groupMembers);
+                InGroup.addAll(groupMembers);
 
                 System.out.println("Group " + groupNumber + ":");
                 for (Contributor_Sec22_G15 member : groupMembers) {
