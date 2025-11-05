@@ -232,7 +232,7 @@ public class Main_Sec22_G15 {
                 System.out.print("Enter project ID: ");
                 String projectID = scanner.nextLine();
                 graph.removeEdge(new Collaboration_Sec22_G15(contributor1, contributor2, projectID));
-                System.out.println("Collaboration removed successfully!");
+                System.out.println("Collaboration removed");
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
