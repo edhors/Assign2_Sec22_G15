@@ -77,6 +77,7 @@ public class Main_Sec22_G15 {
         System.out.println("8. Contributors ranking by number of bridges");
         System.out.println("9. Print the graph");
         System.out.println("0. Exit");
+        System.out.print("Enter your choice: ");
     }
 
 
