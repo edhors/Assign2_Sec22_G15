@@ -1,3 +1,8 @@
+//this class is used to represent the collaboration
+//a collaboration is an edge between two contributors
+//projectId is the id of the project
+//contributor1 is the first contributor of the collaboration
+//contributor2 is the second contributor of the collaboration
 public class Collaboration_Sec22_G15 {
     private String projectId;
     private Contributor_Sec22_G15 contributor1;

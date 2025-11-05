@@ -1,5 +1,7 @@
 import java.util.LinkedList;
-
+//this class is used to represent the organization
+//members are the contributors of the organization
+//members are not necessarily contributors of the graph
 public class Organization_Sec22_G15 extends Contributor_Sec22_G15{
     private LinkedList<Contributor_Sec22_G15> members;
     public Organization_Sec22_G15(String id, String name) {

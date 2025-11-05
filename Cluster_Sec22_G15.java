@@ -1,4 +1,7 @@
 import java.util.LinkedList;
+//this class is used to represent the cluster
+//contributors are the vertices of the cluster
+//theme is the theme of the cluster
 public class Cluster_Sec22_G15 {
     private LinkedList<Contributor_Sec22_G15> contributors;
     private String theme;

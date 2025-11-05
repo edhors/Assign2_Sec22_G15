@@ -1,3 +1,7 @@
+//this class is used to represent the contributor
+//a contributor is a vertex in the graph
+//id is the id of the contributor
+//name is the name of the contributor
 public class Contributor_Sec22_G15 {
     private String id;
     private String name;
