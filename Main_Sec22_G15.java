@@ -22,9 +22,6 @@ public class Main_Sec22_G15 {
                     case 5:
                         printGraph();
                         break;
-                    case 6 :
-                        graph.ShowClusters();
-                        break;
                 }
             } catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -41,7 +38,6 @@ public class Main_Sec22_G15 {
         System.out.println("3. Add a new collaboration");
         System.out.println("4. Remove a collaboration");
         System.out.println("5. Print the graph");
-        System.out.println{"6. Show Clusters(goups)");
         System.out.println("0. Exit");
     }
 
@@ -188,6 +184,7 @@ public class Main_Sec22_G15 {
                     System.out.println(e.getMessage());
                 }
             }
+            
             if(contributor1 != null && contributor2 != null) {
                 graph.addEdge(new Collaboration_Sec22_G15(contributor1, contributor2, "Project " + (graph.getVertices().size() + 1)));
                 System.out.println("Collaboration added successfully");

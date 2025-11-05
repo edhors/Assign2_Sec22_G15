@@ -7,6 +7,7 @@ public class CommunityGraph_Sec22_G15 extends AbstractGraph_Sec22_G15<Contributo
 
     public CommunityGraph_Sec22_G15() {
         super(new LinkedList<>(), new LinkedList<>());
+        this.clusters = new LinkedList<>();
     }
 
     public CommunityGraph_Sec22_G15(LinkedList<Contributor_Sec22_G15> vertices) {
@@ -14,10 +15,12 @@ public class CommunityGraph_Sec22_G15 extends AbstractGraph_Sec22_G15<Contributo
         while (adjacencyList.size() < vertices.size()) {
             adjacencyList.add(new LinkedList<Collaboration_Sec22_G15>());
         }
+        this.clusters = new LinkedList<>();
     }
 
     public CommunityGraph_Sec22_G15(LinkedList<Contributor_Sec22_G15> vertices, LinkedList<LinkedList<Collaboration_Sec22_G15>> adjacencyList) {
         super(vertices, adjacencyList);
+        this.clusters = new LinkedList<>();
     }
 
     @Override
@@ -80,7 +83,7 @@ public class CommunityGraph_Sec22_G15 extends AbstractGraph_Sec22_G15<Contributo
     
         adjacencyList.get(index1).add(collaboration);
         adjacencyList.get(index2).add(otherCollaboration);
-        addCluster(c1, projectId);
+        addCluster(c1, "Cluster " + (clusters.size() + 1));
     }
     
     @Override
@@ -258,9 +261,16 @@ public class CommunityGraph_Sec22_G15 extends AbstractGraph_Sec22_G15<Contributo
         }
         
         Cluster_Sec22_G15 newCluster = new Cluster_Sec22_G15(theme, visited);
+        for(Cluster_Sec22_G15 currentCluster : clusters) {
+            for(Contributor_Sec22_G15 currentContributor : currentCluster.getContributors()) {
+        }
         clusters.add(newCluster);
     }
     
+
+    public void removeCluster(Cluster_Sec22_G15 cluster) {
+        clusters.remove(cluster);
+    }
     public LinkedList<String> getProjectIdsForContributor(Contributor_Sec22_G15 contributor) {
         LinkedList<String> projectIds = new LinkedList<>();
         int index = vertices.indexOf(contributor);
@@ -272,21 +282,32 @@ public class CommunityGraph_Sec22_G15 extends AbstractGraph_Sec22_G15<Contributo
         return projectIds;
     }
     
-        public void ShowClusters() { 
-        LinkedList<Contributor_Sec22_G15> InGroup = new LinkedList<>();
-        int groupNumber = 1;
-
-        for (Contributor_Sec22_G15 person : vertices) {
-            if (!InGroup.contains(person)) {
-                LinkedList<Contributor_Sec22_G15> groupMembers = vertexReachBfs(person);
-                InGroup.addAll(groupMembers);
-
-                System.out.println("Group " + groupNumber + ":");
-                for (Contributor_Sec22_G15 member : groupMembers) {
-                    System.out.println(" " + member.toString());
-                }
-                groupNumber++;
+    public void displayClusters() {
+        System.out.println("Clusters:");
+        for(Cluster_Sec22_G15 currentCluster : clusters) {
+            System.out.print(currentCluster.getTheme() + ":");
+            for(Contributor_Sec22_G15 currentContributor : currentCluster.getContributors()) {
+                System.out.print(" " + currentContributor.toString());
             }
+            System.out.println();
         }
+    }
+
+    public void ShowClusters() { 
+    LinkedList<Contributor_Sec22_G15> InGroup = new LinkedList<>();
+    int groupNumber = 1;
+
+    for (Contributor_Sec22_G15 person : vertices) {
+        if (!InGroup.contains(person)) {
+            LinkedList<Contributor_Sec22_G15> groupMembers = vertexReachBfs(person);
+            InGroup.addAll(groupMembers);
+
+            System.out.println("Group " + groupNumber + ":");
+            for (Contributor_Sec22_G15 member : groupMembers) {
+                System.out.println(" " + member.toString());
+            }
+            groupNumber++;
+        }
+    }
     }
 }

@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class Test {
@@ -13,8 +12,9 @@ public class Test {
         Individual_Sec22_G15 i8 = new Individual_Sec22_G15("I8", "Jessica Miller", "Software Engineer");
         Individual_Sec22_G15 i9 = new Individual_Sec22_G15("I9", "Jacob Wilson", "Software Engineer");
         Individual_Sec22_G15 i10 = new Individual_Sec22_G15("I10", "Jasmine Lee", "Software Engineer");
+        Individual_Sec22_G15 i11 = new Individual_Sec22_G15("I11", "Outsider", "Software Engineer");
 
-        Individual_Sec22_G15[] array = {i1, i2, i3, i4, i5, i6, i7, i8, i9, i10};
+        Individual_Sec22_G15[] array = {i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11};
 
         LinkedList<Contributor_Sec22_G15> individuals = new LinkedList<>();
         for(int i = 0; i < array.length; i++) {
@@ -34,13 +34,17 @@ public class Test {
         graph.addEdge(new Collaboration_Sec22_G15(i9, i6, "Project 9"));
         graph.addEdge(new Collaboration_Sec22_G15(i10, i9, "Project 10"));
 
-        Individual_Sec22_G15 outsider = new Individual_Sec22_G15("I11", "Outsider", "Software Engineer");
-        graph.removeVertex(outsider);
-        graph.vertices.get(0).setName("MODIFIED");
-        graph.removeVertex(graph.vertices.get(0));
+        //Individual_Sec22_G15 outsider = new Individual_Sec22_G15("I11", "Outsider", "Software Engineer");
+        //graph.removeVertex(i2);
+        //graph.vertices.get(0).setName("MODIFIED");
+        //graph.removeVertex(graph.vertices.get(0));
         //graph.removeEdge(new Collaboration_Sec22_G15(i1, i2, "Project 1"));
         System.out.println("Graph: ");
         graph.printGraph();
-        
+        for(Contributor_Sec22_G15 currentContributor : graph.vertexReachBfs(i11)) {
+            System.out.println(currentContributor.toString());
+        }
+        System.out.println(graph.numberOfBridges(i11));
+        graph.displayClusters();
     }
 }
