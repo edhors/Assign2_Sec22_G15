@@ -207,4 +207,57 @@ public class Main_Sec22_G15 {
     public static void printGraph() {
         graph.printGraph();
     }
+
+    public static void removeCollaboration() {
+    int choice = 1;
+    while (choice != 0) {
+        scanner.nextLine();
+        try {
+            System.out.print("Enter first contributor ID: ");
+            String id1 = scanner.nextLine();
+            System.out.print("Enter second contributor ID: ");
+            String id2 = scanner.nextLine();
+
+            Contributor_Sec22_G15 contributor1 = null;
+            Contributor_Sec22_G15 contributor2 = null;
+
+            for (Contributor_Sec22_G15 c : graph.getVertices()) {
+                if (c.getId().equals(id1)) contributor1 = c;
+                if (c.getId().equals(id2)) contributor2 = c;
+            }
+
+            if (contributor1 == null || contributor2 == null) {
+                System.out.println("One or both contributors not found in the graph!");
+            } else {
+                System.out.print("Enter project ID: ");
+                String projectID = scanner.nextLine();
+                graph.removeEdge(new Collaboration_Sec22_G15(contributor1, contributor2, projectID));
+                System.out.println("Collaboration removed successfully!");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        System.out.println("1 - Remove another collaboration\n0 - Exit");
+        choice = scanner.nextInt();
+    }
+}
+        public static void displayClusters() {
+        if (graph.getClusters() == null || graph.getClusters().isEmpty()) {
+        System.out.println("No clusters available.");
+        return;
+    }
+        int n = 1;
+            for (Cluster_Sec22_G15 clust : graph.getClusters()) {
+                System.out.println("Cluster " + n + " - Theme: " + clust.getTheme());
+                for (Contributor_Sec22_G15 member : clust.getContributors()) {
+                    System.out.println("  " + member);
+    }
+                n++;  
+}
+}
+
+        
+}
+        
 }
