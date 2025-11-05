@@ -22,7 +22,7 @@ public class Main_Sec22_G15 {
                     case 5:
                         printGraph();
                         break;
-                    Case 6 :
+                    case 6 :
                         graph.ShowClusters();
                         break;
                 }
