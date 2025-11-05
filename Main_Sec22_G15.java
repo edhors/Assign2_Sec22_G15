@@ -41,6 +41,7 @@ public class Main_Sec22_G15 {
         System.out.println("3. Add a new collaboration");
         System.out.println("4. Remove a collaboration");
         System.out.println("5. Print the graph");
+        System.out.println{"6. Show Clusters(goups)");
         System.out.println("0. Exit");
     }
 
