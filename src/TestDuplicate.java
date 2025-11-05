@@ -3,7 +3,7 @@ public class TestDuplicate {
         CommunityGraph_Sec22_G15 graph = new CommunityGraph_Sec22_G15();
 
         Contributor_Sec22_G15 a = new Individual_Sec22_G15("I1", "Ali", "Engineer");
-        Contributor_Sec22_G15 b = new Individual_Sec22_G15("I2", "Edwardo", "Designer");
+        Contributor_Sec22_G15 b = new Individual_Sec22_G15("I2", "Edwardo", "Doctor");
 
         graph.addContributor(a);
         graph.addContributor(a); 
