@@ -1,5 +1,7 @@
 import java.util.LinkedList;
-
+//this interface is used to represent the graph
+//V is the type of the vertices
+//E is the type of the edges
 public interface Graph_Sec22_G15<V, E> {
     LinkedList<V> getVertices();    
     LinkedList<LinkedList<E>> getAdjacencyList();
