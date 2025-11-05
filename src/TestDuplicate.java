@@ -2,20 +2,15 @@ public class TestDuplicate {
 public static void main(String[] args) {
         CommunityGraph_Sec22_G15 graph = new CommunityGraph_Sec22_G15();
 
-        Contributor_Sec22_G15 a = new Individual_Sec22_G15("I1", "Ali", "Engineer");
-        Contributor_Sec22_G15 b = new Individual_Sec22_G15("I2", "Edwardo", "Doctor");
+        graph.addVertex(new Individual_Sec22_G15("I1", "Edwardo", "Doctor"));
+        graph.addVertex(new Individual_Sec22_G15("I2", "Ali", "Teacher"));
+        graph.addVertex(new Organization_Sec22_G15("O1", "adu", "Education"));
 
-        graph.addContributor(a);
-        graph.addContributor(b);
-        graph.addContributor(b); 
-
-        graph.addEdge(new Collaboration_Sec22_G15(a, b, "Project1"));
-        graph.addEdge(new Collaboration_Sec22_G15(a, b, "Project1")); 
-
-        if (graph.getContributors().size() == 2 && graph.getCollaborations().size() == 1) {
-            System.out.println("Duplicate Entries ");
+       
+        if (graph.getEdges().isEmpty()) {
+            System.out.println("Isolated Contributors  pass");
         } else {
-            System.out.println( "No Duplicate Entries ");
+            System.out.println("Isolated Contributors  fail");
         }
     }
 }
