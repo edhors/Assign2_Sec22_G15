@@ -4,7 +4,7 @@ public class TestIsolated {
 
         graph.addContributor(new Individual_Sec22_G15("I1", "Edwardo", "Doctor"));
         graph.addContributor(new Individual_Sec22_G15("I2", "Ali", "Doctor"));
-        graph.addContributor(new Organization_Sec22_G15("O1", "School", "Education"));
+        graph.addContributor(new Organization_Sec22_G15("1", "School", "Education"));
 
         
         System.out.println("Isolated Contributors Test");
